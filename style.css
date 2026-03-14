@@ -1,0 +1,187 @@
+/* GLOBAL */
+
+body{
+margin:0;
+font-family:'Segoe UI', Arial, sans-serif;
+background:#f5f6f5;
+padding-bottom:80px;
+color:#333;
+}
+
+
+/* HEADER */
+
+.header{
+width:100%;
+background:linear-gradient(90deg,#2c6e49,#5a3e2b);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 50px;
+box-sizing:border-box;
+box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+
+/* LOGO */
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+color:white;
+font-size:22px;
+font-weight:700;
+}
+
+
+/* NAV */
+
+.nav{
+display:flex;
+gap:28px;
+}
+
+.nav a{
+color:white;
+text-decoration:none;
+font-weight:500;
+font-size:15px;
+transition:0.2s;
+}
+
+.nav a:hover{
+opacity:0.85;
+}
+
+
+/* FOOTER */
+
+.footer{
+background:linear-gradient(90deg,#2c6e49,#5a3e2b);
+color:white;
+text-align:center;
+padding:18px 10px;
+font-size:15px;
+
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+}
+
+
+/* FORM CONTAINER */
+
+.container{
+background:white;
+padding:40px;
+border-radius:12px;
+max-width:420px;
+margin:120px auto;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
+/* burgundy accent */
+border-top:6px solid #6b1f2b;
+}
+
+
+/* TITLES */
+
+h2{
+text-align:center;
+color:#6b1f2b;
+margin-bottom:8px;
+font-size:24px;
+}
+
+.subtitle{
+text-align:center;
+font-size:14px;
+color:#666;
+margin-bottom:25px;
+}
+
+
+/* INPUTS */
+
+input,
+select,
+textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #dcdcdc;
+border-radius:6px;
+font-size:14px;
+box-sizing:border-box;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+outline:none;
+border-color:#6b1f2b;
+box-shadow:0 0 4px rgba(107,31,43,0.2);
+}
+
+textarea{
+height:100px;
+resize:none;
+}
+
+
+/* DATE TYPE CHECKBOXES */
+
+.date-types{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:5px;
+margin-bottom:10px;
+}
+
+.date-option{
+display:flex;
+align-content: center;
+align-items:center;
+gap:6px;
+background:#faf5f6;
+border:1px solid #e4cfd3;
+padding:8px 14px;
+border-radius:8px;
+cursor:pointer;
+font-size:14px;
+transition:0.2s;
+}
+
+.date-option input{
+accent-color:#6b1f2b;
+cursor:pointer;
+}
+
+.date-option:hover{
+background:#f2e4e7;
+border-color:#6b1f2b;
+}
+
+
+/* BUTTON */
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+background:#6b1f2b;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+background:#521720;
+}
