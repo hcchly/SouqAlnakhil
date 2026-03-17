@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard - Souq Al-Nakhil</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">
+    Souq Al-Nakhil
+  </div>
+
+  <nav class="nav">
+    <a href="home.html">Home</a>
+    <a href="login.html">Logout</a>
+  </nav>
+</header>
+
+<main class="page-shell">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-top">
+      <div>
+        <h1>Admin Dashboard</h1>
+      </div>
+      <div class="welcome-pill">Welcome, Sarah</div>
+    </div>
+  </section>
+
+  <section class="stats-row">
+    <div class="dashboard-stat">
+      <strong>120</strong>
+      <span>Total Customers</span>
+    </div>
+    <div class="dashboard-stat">
+      <strong>35</strong>
+      <span>Total Farmers</span>
+    </div>
+    <div class="dashboard-stat">
+      <strong>210</strong>
+      <span>Total Products</span>
+    </div>
+  </section>
+
+  <section class="stats-row">
+    <div class="dashboard-stat">
+      <strong>18</strong>
+      <span>Verified Farms</span>
+    </div>
+    <div class="dashboard-stat">
+      <strong>3</strong>
+      <span>Pending Farm Requests</span>
+    </div>
+    <div class="dashboard-stat">
+      <strong>12</strong>
+      <span>Flagged Products</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <div>
+        <h3>Farm Verification</h3>
+        <p>Review farms and manage the Trusted Farmer Badge.</p>
+      </div>
+      <div class="inline-actions">
+        <a class="action-link secondary" href="createfarm.html">View Farms</a>
+        <a class="action-link" href="createfarm.html">Verify Farm</a>
+        <a class="action-link light" href="createfarm.html">Remove Badge</a>
+      </div>
+    </div>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Farm Name</th>
+          <th>Region</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AlQassim Farm</td>
+          <td>Qassim</td>
+          <td><span class="pill review">Pending</span></td>
+          <td>Verify</td>
+        </tr>
+        <tr>
+          <td>Madinah Farm</td>
+          <td>Madinah</td>
+          <td><span class="pill approved">Verified</span></td>
+          <td>Remove Badge</td>
+        </tr>
+        <tr>
+          <td>Al-Ahsa Harvest</td>
+          <td>Al-Ahsa</td>
+          <td><span class="pill review">Pending</span></td>
+          <td>Verify</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <div>
+        <h3>Customer Management</h3>
+        <p>Manage customer accounts in the system.</p>
+      </div>
+    </div>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ahmed Al-Qahtani</td>
+          <td>ahmed@email.com</td>
+          <td>Customer</td>
+          <td>
+            <div class="table-actions">
+              <a class="mini-btn edit" href="register.html">Edit</a>
+              <a class="mini-btn delete" href="register.html">Delete</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Sara Al-Harbi</td>
+          <td>sara@email.com</td>
+          <td>Customer</td>
+          <td>
+            <div class="table-actions">
+              <a class="mini-btn edit" href="register.html">Edit</a>
+              <a class="mini-btn delete" href="register.html">Delete</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Mona Al-Otaibi</td>
+          <td>mona@email.com</td>
+          <td>Customer</td>
+          <td>
+            <div class="table-actions">
+              <a class="mini-btn edit" href="register.html">Edit</a>
+              <a class="mini-btn delete" href="register.html">Delete</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <div>
+        <h3>Product Monitoring</h3>
+      </div>
+    </div>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Farm</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sukkari Dates</td>
+          <td>AlQassim Farm</td>
+          <td>40 SR</td>
+          <td>
+            <div class="table-actions">
+              <a class="mini-btn edit" href="editProduct.html">Edit</a>
+              <a class="mini-btn delete" href="editProduct.html">Delete</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Ajwa Dates</td>
+          <td>Madinah Farm</td>
+          <td>60 SR</td>
+          <td>
+            <div class="table-actions">
+              <a class="mini-btn edit" href="editProduct.html">Edit</a>
+              <a class="mini-btn delete" href="editProduct.html">Delete</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Khalas Dates</td>
+          <td>Al-Ahsa Harvest</td>
+          <td>35 SR</td>
+          <td>
+            <div class="table-actions">
+              <a class="mini-btn edit" href="editProduct.html">Edit</a>
+              <a class="mini-btn delete" href="editProduct.html">Delete</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
