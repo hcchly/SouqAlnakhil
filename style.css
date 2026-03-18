@@ -185,3 +185,75 @@ transition:0.2s;
 button:hover{
 background:#521720;
 }
+
+/* DETAILS PAGE STYLES */
+details-card {
+background: white;
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+margin-top: 10px;
+}
+
+/* TABLE */
+
+.details-table {
+width: 100%;
+border-collapse: collapse;
+margin-bottom: 15px;
+}
+
+.details-table td {
+padding: 10px;
+border-bottom: 1px solid #eee;
+font-size: 14px;
+}
+
+/* BUTTON */
+
+.primary-btn {
+width: 100%;
+padding: 12px;
+background: #6b1f2b;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+font-size: 15px;
+}
+
+.primary-btn:hover {
+background: #521720;
+}
+
+/* TRUSTED BADGE */
+
+.trusted-badge {
+color: #6b1f2b;
+font-weight: bold;
+margin-top: 10px;
+}
+
+/* PRODUCT CARDS */
+
+.product-cards {
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
+margin-top: 10px;
+}
+
+.product-card {
+background: white;
+padding: 15px;
+border-radius: 10px;
+box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+flex: 1;
+min-width: 120px;
+text-align: center;
+}
+
+.product-card h4 {
+margin: 5px 0;
+color: #6b1f2b;
+}
