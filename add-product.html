@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product - Souq Al-Nakhil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">
+      <img src="logo.png" alt="Souq Al-Nakhil Logo" class="logo-img">
+      <span>Souq Al-Nakhil</span>
+    </div>
+
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="add-product.html">Add Product</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Add Product</h2>
+    <p class="subtitle">Enter your product details so customers can view and purchase your dates.</p>
+
+    <form>
+      <label>Product Name</label>
+      <input type="text" placeholder="Enter product name">
+
+      <label>Date Type</label>
+      <select>
+        <option selected disabled>Select date type</option>
+        <option>Ajwa</option>
+        <option>Sukkari</option>
+        <option>Khalas</option>
+      </select>
+
+      <label>Price</label>
+      <input type="number" placeholder="Enter price">
+
+      <label>Quantity</label>
+      <input type="number" placeholder="Enter quantity">
+
+      <label>Description</label>
+      <textarea placeholder="Describe the product"></textarea>
+
+      <button type="submit">Add Product</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
