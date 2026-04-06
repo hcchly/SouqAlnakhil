@@ -16,4 +16,4 @@ Dr. Ghaida Alfayez – Project Supervisor
 
 Course: IT320 – Software Engineering  
 University: King Saud University  
-Semester: 1447H
+Semester: Second semester 1447H
