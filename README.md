@@ -1,4 +1,4 @@
-# Souq Al-Nakhil
+# Souq Al-Nakhil 🌴
 
 Souq Al-Nakhil is a web-based agricultural marketplace that connects local Saudi farmers with consumers. It provides a centralized platform for browsing, searching, and managing date products with a focus on transparency and accessibility.
 
@@ -28,16 +28,6 @@ The system is a web application and does not include:
 - Online payment  
 - Delivery services  
 - Mobile application  
-
-## Team
-
-- Haifa Alromaih  
-- Rand Aldahmash  
-- Hala Alduhayan  
-- Lama Alghamdi  
-- Haifa bin Salamah  
-
-Supervisor: Dr. Ghaida Alfayez  
 
 ## Notes
 
