@@ -1,4 +1,4 @@
-# Authors
+
 
 ## Team Members
 
