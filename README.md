@@ -35,9 +35,9 @@ This project was developed as part of the IT320 Software Engineering course at K
 
 ## Student Name
 
-Rand Aldahmash, 445202375
-Haifa Alromaih, 445204196
-Hala Alduhayan, 445202381
-Haifa bin Salamah, 445202292
-Lama Alghamdi, 445200358
+- Rand Aldahmash, 445202375
+- Haifa Alromaih, 445204196
+- Hala Alduhayan, 445202381
+- Haifa bin Salamah, 445202292
+- Lama Alghamdi, 445200358
 
