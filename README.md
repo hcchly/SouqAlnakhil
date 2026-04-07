@@ -32,3 +32,12 @@ The system is a web application and does not include:
 ## Notes
 
 This project was developed as part of the IT320 Software Engineering course at King Saud University. 
+
+## Student Name
+
+Rand Aldahmash, 445202375
+Haifa Alromaih, 445204196
+Hala Alduhayan, 445202381
+Haifa bin Salamah, 445202292
+Lama Alghamdi, 445200358
+
