@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header class="site-header">
   <div class="header-container">
 
@@ -19,48 +20,55 @@
     </a>
 
     <nav class="site-nav">
- <a href="home.html"class="nav-btn nav-btn-outline">Home</a>
-	  <a href="Farmerdashboard.html"class="nav-btn nav-btn-outline">Dashboard</a>
-      <a href="add-product.html"class="nav-btn nav-btn-outline">Add Product</a>
-	  	  <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
-
+      <a href="home.html">Home</a>
+      <a href="Farmerdashboard.html">Dashboard</a>
+      <a href="add-product.html">Add Product</a>
+      <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
     </nav>
 
   </div>
 </header>
-    <div class="back-wrap">
-  <button type="button" class="back-btn" onclick="goBackSafe()">← Back</button>
+
+<div class="container">
+  <h2>Add Product</h2>
+  <p class="subtitle">Enter your product details so customers can view and purchase your dates.</p>
+
+  <form id="addProductForm">
+    <label for="productName">Product Name</label>
+    <input type="text" id="productName" placeholder="Enter product name">
+
+    <label for="dateType">Date Type</label>
+    <select id="dateType">
+      <option value="">Select date type</option>
+      <option>Ajwa</option>
+      <option>Sukkari</option>
+      <option>Khalas</option>
+    </select>
+
+    <label for="price">Price</label>
+    <input type="number" id="price" placeholder="Enter price">
+
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" placeholder="Enter quantity">
+
+    <label for="origin">Origin</label>
+    <select id="origin">
+      <option value="">Select origin</option>
+      <option>Najd</option>
+      <option>Qassim</option>
+      <option>Al-Ahsa</option>
+    </select>
+
+    <label for="description">Description</label>
+    <textarea id="description" placeholder="Describe the product"></textarea>
+
+    <button type="submit">Add Product</button>
+
+    <p id="addProductMessage" class="form-message"></p>
+  </form>
 </div>
-  <div class="container">
-    <h2>Add Product</h2>
-    <p class="subtitle">Enter your product details so customers can view and purchase your dates.</p>
 
-    <form>
-      <label>Product Name</label>
-      <input type="text" placeholder="Enter product name">
-
-      <label>Date Type</label>
-      <select>
-        <option selected disabled>Select date type</option>
-        <option>Ajwa</option>
-        <option>Sukkari</option>
-        <option>Khalas</option>
-      </select>
-
-      <label>Price</label>
-      <input type="number" placeholder="Enter price">
-
-      <label>Quantity</label>
-      <input type="number" placeholder="Enter quantity">
-
-      <label>Description</label>
-      <textarea placeholder="Describe the product"></textarea>
-
-      <button type="submit">Add Product</button>
-    </form>
-  </div>
-
- <footer class="site-footer">
+<footer class="site-footer">
   <div class="footer-container">
     
     <div class="footer-brand">
@@ -83,6 +91,69 @@
     <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
   </div>
 </footer>
+
+<script>
+  document.getElementById("addProductForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const productName = document.getElementById("productName").value.trim();
+    const dateType = document.getElementById("dateType").value;
+    const price = document.getElementById("price").value.trim();
+    const quantity = document.getElementById("quantity").value.trim();
+    const origin = document.getElementById("origin").value;
+    const description = document.getElementById("description").value.trim();
+    const message = document.getElementById("addProductMessage");
+
+    message.textContent = "";
+    message.className = "form-message";
+
+    if (
+      productName === "" ||
+      dateType === "" ||
+      price === "" ||
+      quantity === "" ||
+      origin === "" ||
+      description === ""
+    ) {
+      message.textContent = "Please fill in all required fields.";
+      message.classList.add("error-message");
+      return;
+    }
+
+    if (Number(price) < 0 || isNaN(Number(price))) {
+      message.textContent = "Please enter a valid price.";
+      message.classList.add("error-message");
+      return;
+    }
+
+    if (Number(quantity) < 0 || isNaN(Number(quantity))) {
+      message.textContent = "Please enter a valid quantity.";
+      message.classList.add("error-message");
+      return;
+    }
+
+    const farm = JSON.parse(localStorage.getItem("souqFarm")) || {};
+    const products = JSON.parse(localStorage.getItem("souqProducts")) || [];
+const newProduct = {
+      productName: productName,
+      dateType: dateType,
+      price: Number(price),
+      quantity: Number(quantity),
+      region: origin,
+      origin: origin,
+      description: description,
+      farmName: farm.farmName || "My Farm"
+    };
+
+    products.push(newProduct);
+    localStorage.setItem("souqProducts", JSON.stringify(products));
+
+    message.textContent = "Product added successfully.";
+    message.classList.add("success-message");
+
+    document.getElementById("addProductForm").reset();
+  });
+</script>
 
 </body>
 </html>
