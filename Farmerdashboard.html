@@ -1,214 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Farmer Dashboard - Souq Al-Nakhil</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Dashboard - Souq Al-Nakhil</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header class="site-header">
-  <div class="header-container">
-
-    <a href="home.html" class="brand">
-      <img src="logo.png" class="brand-logo">
-      <div class="brand-text">
-        <span class="brand-title">Souq Al-Nakhil</span>
-        <span class="brand-subtitle">Farmer Panel</span>
-      </div>
-    </a>
-
-    <nav class="site-nav">
-      <a href="home.html">Home</a>
-      <a href="Farmerdashboard.html">Dashboard</a>
-      <a href="add-product.html">Add Product</a>
-      <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
-    </nav>
-
-  </div>
-</header>
-
-<main class="page-shell">
-  <section class="dashboard-hero">
-    <div class="dashboard-hero-top">
-      <div>
-        <h1>Farmer Dashboard</h1>
-      </div>
-      <div class="welcome-pill">Welcome, Abdulrahman</div>
-    </div>
-  </section>
-
-  <section class="panel pending-setup">
-    <div class="pending-setup-box">
-      <div class="pending-setup-copy">
-        <span class="status-badge pending">Before Farm Creation</span>
-        <h3>Required First Step</h3>
-        <p>Complete the farm profile to continue with product and farm management.</p>
-      </div>
-      <div class="state-grid">
-        <div class="state-card">
-          <h4>Create Farm Profile</h4>
-          <p>Add farm name, location, date types, and a short farm description.</p>
-          <a class="action-link secondary" href="createfarm.html">Open Form</a>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="home.html" class="brand">
+        <img src="logo.png" alt="Souq Al-Nakhil Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-title">Souq Al-Nakhil</span>
+          <span class="brand-subtitle">Farmer Panel</span>
         </div>
-        <div class="state-card">
-          <h4>Add Product</h4>
-          <p>This option will open after the farm profile is completed.</p>
-          <a class="action-link disabled" href="#">Locked</a>
+      </a>
+
+      <nav class="site-nav">
+        <a href="home.html">Home</a>
+        <a href="Farmerdashboard.html">Dashboard</a>
+        <a href="add-product.html">Add Product</a>
+        <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
+      </nav>
+    </div>
+  </header>
+    <div class="back-wrap">
+  <button type="button" class="back-btn" onclick="goBackSafe()">← Back</button>
+</div>
+
+  <main class="page-shell">
+    <section class="dashboard-hero">
+      <div class="dashboard-hero-top">
+        <div>
+          <h1>Farmer Dashboard</h1>
         </div>
-        <div class="state-card">
-          <h4>Edit Product</h4>
-          <p>Editing and deleting products are not available before farm setup is finished.</p>
-          <a class="action-link disabled" href="editProduct.html">Locked</a>
+        <div class="welcome-pill">Welcome, Abdulrahman</div>
+      </div>
+    </section>
+
+    <section class="panel pending-setup" id="beforeFarmSection">
+      <div class="pending-setup-box">
+        <div class="pending-setup-copy">
+          <span class="status-badge pending">Before Farm Creation</span>
+          <h3>Required First Step</h3>
+          <p>Complete the farm profile to continue with product and farm management.</p>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="panel">
-    <div class="pending-setup-box">
-      <div class="pending-setup-copy">
-        <span class="status-badge active">After Farm Creation</span>
-        <h3>Farm Profile Completed</h3>
-        <ul class="pending-points">
-          <li><strong>Available now:</strong> Add Product</li>
-          <li><strong>Manage products:</strong> Edit Product and Delete Product from the products list</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+        <div class="state-grid">
+          <div class="state-card">
+            <h4>Create Farm Profile</h4>
+            <p>Add farm name, location, date types, and a short farm description.</p>
+            <a class="action-link secondary" href="createfarm.html">Open Form</a>
+          </div>
 
-  <section class="stats-row">
-    <div class="dashboard-stat">
-      <strong>5</strong>
-      <span>Total Products</span>
-    </div>
-    <div class="dashboard-stat">
-      <strong>Al-Ahsa</strong>
-      <span>Farm Region</span>
-    </div>
-    <div class="dashboard-stat">
-      <strong>Active</strong>
-      <span>Farm Status</span>
-    </div>
-  </section>
+          <div class="state-card">
+            <h4>Add Product</h4>
+            <p>This option will open after the farm profile is completed.</p>
+            <a class="action-link disabled" href="#">Locked</a>
+          </div>
 
-  <section class="panel">
-    <div class="section-head">
-      <div>
-        <span class="status-badge active">Farmer Profile</span>
-        <h3>Welcome Section</h3>
-        <p>The farmer account is active and connected to the farm profile.</p>
-      </div>
-      <div class="inline-actions">
-        <a class="action-link secondary" href="createfarm.html">View My Farm</a>
-        <a class="action-link light" href="createfarm.html">Edit Farm</a>
-      </div>
-    </div>
-    <div class="info-grid">
-      <div class="info-card">
-        <h4>Farm Information</h4>
-        <ul class="meta-list">
-          <li><strong>Farmer Name:</strong> Abdulrahman Al-Harbi</li>
-          <li><strong>Farm Name:</strong> Al-Ahsa Harvest</li>
-          <li><strong>Region:</strong> Al-Ahsa</li>
-          <li><strong>Email:</strong> abdulrahman@nakhil.sa</li>
-        </ul>
-      </div>
-      <div class="info-card">
-        <h4>Current Logic</h4>
-        <div class="notice">
-          The farm profile has already been created. The dashboard now shows the farm name and enables the product actions.
+          <div class="state-card">
+            <h4>Edit Product</h4>
+            <p>Editing and deleting products are not available before farm setup is finished.</p>
+            <a class="action-link disabled" href="#">Locked</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="panel">
-    <div class="section-head">
-      <div>
-        <h3>My Products</h3>
-        <p>Current products listed under Al-Ahsa Harvest.</p>
+    <section class="panel" id="afterFarmSection" style="display:none;">
+      <div class="pending-setup-box">
+        <div class="pending-setup-copy">
+          <span class="status-badge active">After Farm Creation</span>
+          <h3>Farm Profile Completed</h3>
+          <ul class="pending-points">
+            <li><strong>Available now:</strong> Add Product</li>
+            <li><strong>Manage products:</strong> Edit Product and Delete Product from the products list</li>
+          </ul>
+        </div>
       </div>
-      <div class="inline-actions">
-        <a class="action-link soft-add" href="editProduct.html">+ Add Product</a>
+    </section>
+
+    <section class="stats-row" id="farmStatsSection" style="display:none;">
+      <div class="dashboard-stat">
+        <strong id="totalProducts">0</strong>
+        <span>Total Products</span>
+      </div>
+
+      <div class="dashboard-stat">
+        <strong id="dashboardFarmRegion">-</strong>
+        <span>Farm Region</span>
+      </div>
+
+      <div class="dashboard-stat">
+        <strong id="dashboardFarmStatus">Pending</strong>
+        <span>Farm Status</span>
+      </div>
+    </section>
+
+    <section class="panel" id="farmProfileSection" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="status-badge active">Farmer Profile</span>
+          <h3>Welcome Section</h3>
+          <p>The farmer account is active and connected to the farm profile.</p>
+        </div>
+
+        <div class="inline-actions">
+          <a class="action-link secondary" href="createfarm.html">View My Farm</a>
+          <a class="action-link light" href="createfarm.html">Edit Farm</a>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h4>Farm Information</h4>
+          <ul class="meta-list">
+            <li><strong>Farm Name:</strong> <span id="dashboardFarmName">-</span></li>
+            <li><strong>Region:</strong> <span id="dashboardFarmRegionText">-</span></li>
+            <li><strong>Date Types:</strong> <span id="dashboardFarmDateTypes">-</span></li>
+            <li><strong>Description:</strong> <span id="dashboardFarmDescription">-</span></li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>Current Logic</h4>
+          <div class="notice">
+            The farm profile has already been created. The dashboard now shows the farm name and enables the product actions.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="productsSection" style="display:none;">
+      <div class="section-head">
+        <div>
+          <h3>My Products</h3>
+          <p id="productsSubtext">Current products listed under your farm.</p>
+        </div>
+
+        <div class="inline-actions">
+          <a class="action-link soft-add" href="add-product.html">+ Add Product</a>
+        </div>
+      </div>
+
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Date Type</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="dashboardProductsBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Souq Al-Nakhil</h3>
+        <p>
+          A trusted Saudi marketplace connecting local farms with customers,
+          making it easier to discover fresh, high-quality dates from different regions.
+        </p>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: support@souqalnakhil.com</p>
+        <p>Riyadh, Saudi Arabia</p>
       </div>
     </div>
-    <table class="product-table">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Date Type</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Sukkari Premium</td>
-          <td>Dates</td>
-          <td>40 SAR</td>
-          <td>10 kg</td>
-          <td>
-            <div class="table-actions">
-              <a class="mini-btn edit" href="editProduct.html">Edit</a>
-              <a class="mini-btn delete" href="editProduct.html">Delete</a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>Ajwa Select</td>
-          <td>Dates</td>
-          <td>60 SAR</td>
-          <td>5 kg</td>
-          <td>
-            <div class="table-actions">
-              <a class="mini-btn edit" href="editProduct.html">Edit</a>
-              <a class="mini-btn delete" href="editProduct.html">Delete</a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>Khalas Box</td>
-          <td>Dates</td>
-          <td>35 SAR</td>
-          <td>14 kg</td>
-          <td>
-            <div class="table-actions">
-              <a class="mini-btn edit" href="editProduct.html">Edit</a>
-              <a class="mini-btn delete" href="editProduct.html">Delete</a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-</main>
 
-<footer class="site-footer">
-  <div class="footer-container">
-    
-    <div class="footer-brand">
-      <h3>Souq Al-Nakhil</h3>
-      <p>
-        A trusted Saudi marketplace connecting local farms with customers,
-        making it easier to discover fresh, high-quality dates from different regions.
-      </p>
+    <div class="footer-bottom">
+      <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
     </div>
+  </footer>
 
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>Email: support@souqalnakhil.com</p>
-      <p>Riyadh, Saudi Arabia</p>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
-  </div>
-</footer>
-
+  <script src="app.js"></script>
 </body>
 </html>

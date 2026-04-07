@@ -1,116 +1,67 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Edit Product</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product - Souq Al-Nakhil</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header class="site-header">
-  <div class="header-container">
+  <header class="site-header">
+    <div class="header-container">
+      <a href="home.html" class="brand">
+        <img src="logo.png" alt="Souq Al-Nakhil Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-title">Souq Al-Nakhil</span>
+          <span class="brand-subtitle">Farmer Panel</span>
+        </div>
+      </a>
 
-    <a href="home.html" class="brand">
-      <img src="logo.png" class="brand-logo">
-      <div class="brand-text">
-        <span class="brand-title">Souq Al-Nakhil</span>
-        <span class="brand-subtitle">Farmer Panel</span>
-      </div>
-    </a>
-
-    <nav class="site-nav">
-      <a href="home.html">Home</a>
-      <a href="Farmerdashboard.html">Dashboard</a>
-      <a href="add-product.html">Add Product</a>
-      <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
-    </nav>
-
-  </div>
-</header>
-
-
-<!-- FORM -->
-
-<div class="container">
-
-<h2>Edit Product</h2>
-
-<p class="subtitle">
-Update the product information below.
-</p>
-
-<form>
-
-<label>Product Name</label>
-<input type="text" placeholder="Enter product name">
-
-
-<label>Date Type</label>
-<select>
-
-<option>Select Date Type</option>
-<option>Ajwa</option>
-<option>Sukkari</option>
-<option>Khalas</option>
-
-</select>
-
-
-<label>Price (SAR)</label>
-<input type="number" placeholder="Enter price">
-
-
-<label>Quantity</label>
-<input type="number" placeholder="Enter quantity">
-
-
-<label>Origin Region</label>
-<select>
-
-<option>Select Region</option>
-<option>Najd</option>
-<option>Qassim</option>
-<option>Al-Ahsa</option>
-
-</select>
-
-
-<label>Product Description</label>
-<textarea placeholder="Describe the product"></textarea>
-
-
-<button>Save Changes</button>
-
-</form>
-
+      <nav class="site-nav">
+        <a href="home.html">Home</a>
+        <a href="Farmerdashboard.html">Dashboard</a>
+        <a href="add-product.html">Add Product</a>
+        <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
+      </nav>
+    </div>
+  </header>
+<div class="back-wrap">
+  <button type="button" class="back-btn" onclick="goBackSafe()">← Back</button>
 </div>
+  <div class="container">
+    <h2>Edit Product</h2>
+    <p class="subtitle">
+      Update the product information below.
+    </p>
 
+    <form id="editProductForm">
+      <label for="productName">Product Name</label>
+      <input type="text" id="productName" placeholder="Enter product name">
 
-<footer class="site-footer">
-  <div class="footer-container">
-    
-    <div class="footer-brand">
-      <h3>Souq Al-Nakhil</h3>
-      <p>
-        A trusted Saudi marketplace connecting local farms with customers,
-        making it easier to discover fresh, high-quality dates from different regions.
-      </p>
-    </div>
+      <label for="dateType">Date Type</label>
+      <select id="dateType">
+        <option>Select Date Type</option>
+        <option>Ajwa</option>
+        <option>Sukkari</option>
+        <option>Khalas</option>
+      </select>
 
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>Email: support@souqalnakhil.com</p>
-      <p>Riyadh, Saudi Arabia</p>
-    </div>
+      <label for="price">Price (SAR)</label>
+      <input type="number" id="price" placeholder="Enter price">
 
-  </div>
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" placeholder="Enter quantity">
 
-  <div class="footer-bottom">
-    <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
-  </div>
-</footer>
+      <label for="originRegion">Origin Region</label>
+      <select id="originRegion">
+        <option>Select Region</option>
+        <option>Najd</option>
+        <option>Qassim</option>
+        <option>Al-Ahsa</option>
+      </select>
 
+      <label for="productDescription">Product Description</label>
+      <textarea id="productDescription" placeholder="Describe the product"></textarea>
 
-</body>
-</html>
+      <p id="product
