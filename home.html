@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Product - Souq Al-Nakhil</title>
+  <title>Home - Souq Al-Nakhil</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,62 +15,83 @@
       <img src="logo.png" class="brand-logo">
       <div class="brand-text">
         <span class="brand-title">Souq Al-Nakhil</span>
-        <span class="brand-subtitle">Farmer Panel</span>
+        <span class="brand-subtitle">Fresh Saudi Dates Marketplace</span>
       </div>
     </a>
 
     <nav class="site-nav">
-      <a href="home.html">Home</a>
-      <a href="Farmerdashboard.html">Dashboard</a>
-      <a href="add-product.html">Add Product</a>
+      <a href="home.html" class="nav-btn nav-btn-outline">Home</a>
       <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
     </nav>
 
   </div>
 </header>
 
-<div class="container">
-  <h2>Add Product</h2>
-  <p class="subtitle">Enter your product details so customers can view and purchase your dates.</p>
-
-  <form id="addProductForm">
-    <label for="productName">Product Name</label>
-    <input type="text" id="productName" placeholder="Enter product name">
-
-    <label for="dateType">Date Type</label>
-    <select id="dateType">
-      <option value="">Select date type</option>
-      <option>Ajwa</option>
-      <option>Sukkari</option>
-      <option>Khalas</option>
-    </select>
-
-    <label for="price">Price</label>
-    <input type="number" id="price" placeholder="Enter price">
-
-    <label for="quantity">Quantity</label>
-    <input type="number" id="quantity" placeholder="Enter quantity">
-
-    <label for="origin">Origin</label>
-    <select id="origin">
-      <option value="">Select origin</option>
-      <option>Najd</option>
-      <option>Qassim</option>
-      <option>Al-Ahsa</option>
-    </select>
-
-    <label for="description">Description</label>
-    <textarea id="description" placeholder="Describe the product"></textarea>
-
-    <button type="submit">Add Product</button>
-
-    <p id="addProductMessage" class="form-message"></p>
-  </form>
+<div class="back-wrap">
+  <button type="button" class="back-btn" onclick="history.back()">← Back</button>
 </div>
+
+<main class="page-shell">
+  <section class="dashboard-hero">
+    <div class="dashboard-hero-top">
+      <div>
+        <h1>Discover Fresh Saudi Dates</h1>
+        <p>
+          Browse products from local farms, search by farm name, and filter by region or date type
+          to find the dates that match your preference.
+        </p>
+      </div>
+      <span class="welcome-pill">Fresh • Local • Trusted</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <div>
+        <h3>Search & Filter</h3>
+        <p>Find products easily using the search bar and filters below.</p>
+      </div>
+    </div>
+
+    <form class="filter-form" id="filterForm">
+      <input type="text" id="searchInput" placeholder="Search by farm name">
+
+      <select id="regionFilter">
+        <option value="">All Regions</option>
+        <option>Najd</option>
+        <option>Qassim</option>
+        <option>Al-Ahsa</option>
+      </select>
+
+      <select id="typeFilter">
+        <option value="">All Date Types</option>
+        <option>Ajwa</option>
+        <option>Sukkari</option>
+        <option>Khalas</option>
+      </select>
+
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="section-head">
+      <div>
+        <h3>Available Products</h3>
+        <p>A list of products available on the platform.</p>
+      </div>
+    </div>
+
+    <div id="noResultsMessage" class="no-results" style="display:none;">
+      No matching products found.
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+</main>
 
 <footer class="site-footer">
   <div class="footer-container">
-    
     <div class="footer-brand">
       <h3>Souq Al-Nakhil</h3>
       <p>
@@ -84,7 +105,6 @@
       <p>Email: support@souqalnakhil.com</p>
       <p>Riyadh, Saudi Arabia</p>
     </div>
-
   </div>
 
   <div class="footer-bottom">
@@ -93,67 +113,111 @@
 </footer>
 
 <script>
-  document.getElementById("addProductForm").addEventListener("submit", function(e) {
+  const defaultProducts = [
+    {
+      id: 1,
+      productName: "Ajwa Dates",
+      farmName: "Al Barakah Farm",
+      region: "Al-Ahsa",
+      dateType: "Ajwa",
+      price: "45",
+      quantity: "20 boxes",
+      description: "Fresh premium Ajwa dates from a trusted local farm.",
+      imageUrl: "images/ajwa.png"
+    },
+    {
+      id: 2,
+      productName: "Sukkari Dates",
+      farmName: "Palm Valley",
+      region: "Qassim",
+      dateType: "Sukkari",
+      price: "35",
+      quantity: "15 boxes",
+      description: "Sweet and soft Sukkari dates, perfect for daily use.",
+      imageUrl: "images/sukkari.png"
+    },
+    {
+      id: 3,
+      productName: "Khalas Dates",
+      farmName: "Golden Palm Farm",
+      region: "Najd",
+      dateType: "Khalas",
+      price: "40",
+      quantity: "12 boxes",
+      description: "High-quality Khalas dates with rich texture and flavor.",
+      imageUrl: "images/khalas.png"
+    }
+  ];
+
+  function getAllProducts() {
+    const savedProducts = JSON.parse(localStorage.getItem("souqMarketProducts")) || [];
+    return [...defaultProducts, ...savedProducts];
+  }
+
+  function renderProducts(products) {
+    const grid = document.getElementById("productsGrid");
+    const noResults = document.getElementById("noResultsMessage");
+
+    grid.innerHTML = "";
+
+    if (products.length === 0) {
+      noResults.style.display = "block";
+      return;
+    }
+
+    noResults.style.display = "none";
+
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "market-card";
+
+      card.innerHTML = `
+        <img src="${product.imageUrl}" alt="${product.productName}">
+        <h4>
+          <a href="view-product.html?id=${product.id}" class="product-link">${product.productName}</a>
+        </h4>
+        <p><strong>Farm:</strong> ${product.farmName}</p>
+        <p><strong>Region:</strong> ${product.region}</p>
+        <p><strong>Type:</strong> ${product.dateType}</p>
+        <p><strong>Price:</strong> ${product.price} SAR</p>
+        <p><strong>Quantity:</strong> ${product.quantity}</p>
+        <p class="card-desc">${product.description}</p>
+      `;
+
+      grid.appendChild(card);
+    });
+  }
+
+  function applyFilters() {
+    const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
+    const regionValue = document.getElementById("regionFilter").value;
+    const typeValue = document.getElementById("typeFilter").value;
+
+    let products = getAllProducts();
+
+    if (searchValue) {
+      products = products.filter(product =>
+        product.farmName.toLowerCase().includes(searchValue)
+      );
+    }
+
+    if (regionValue) {
+      products = products.filter(product => product.region === regionValue);
+    }
+
+    if (typeValue) {
+      products = products.filter(product => product.dateType === typeValue);
+    }
+
+    renderProducts(products);
+  }
+
+  document.getElementById("filterForm").addEventListener("submit", function(e) {
     e.preventDefault();
-
-    const productName = document.getElementById("productName").value.trim();
-    const dateType = document.getElementById("dateType").value;
-    const price = document.getElementById("price").value.trim();
-    const quantity = document.getElementById("quantity").value.trim();
-    const origin = document.getElementById("origin").value;
-    const description = document.getElementById("description").value.trim();
-    const message = document.getElementById("addProductMessage");
-
-    message.textContent = "";
-    message.className = "form-message";
-
-    if (
-      productName === "" ||
-      dateType === "" ||
-      price === "" ||
-      quantity === "" ||
-      origin === "" ||
-      description === ""
-    ) {
-      message.textContent = "Please fill in all required fields.";
-      message.classList.add("error-message");
-      return;
-    }
-
-    if (Number(price) < 0 || isNaN(Number(price))) {
-      message.textContent = "Please enter a valid price.";
-      message.classList.add("error-message");
-      return;
-    }
-
-    if (Number(quantity) < 0 || isNaN(Number(quantity))) {
-      message.textContent = "Please enter a valid quantity.";
-      message.classList.add("error-message");
-      return;
-    }
-
-    const farm = JSON.parse(localStorage.getItem("souqFarm")) || {};
-    const products = JSON.parse(localStorage.getItem("souqProducts")) || [];
-const newProduct = {
-      productName: productName,
-      dateType: dateType,
-      price: Number(price),
-      quantity: Number(quantity),
-      region: origin,
-      origin: origin,
-      description: description,
-      farmName: farm.farmName || "My Farm"
-    };
-
-    products.push(newProduct);
-    localStorage.setItem("souqProducts", JSON.stringify(products));
-
-    message.textContent = "Product added successfully.";
-    message.classList.add("success-message");
-
-    document.getElementById("addProductForm").reset();
+    applyFilters();
   });
-</script>
 
+  renderProducts(getAllProducts());
+</script>
 </body>
 </html>
