@@ -20,15 +20,16 @@
     </a>
 
     <nav class="site-nav">
-      <a href="home.html">Home</a>
-      <a href="Farmerdashboard.html">Dashboard</a>
-      <a href="add-product.html">Add Product</a>
+        <a href="Farmerdashboard.html"class="nav-btn nav-btn-outline">Dashboard</a>
       <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
     </nav>
 
   </div>
 </header>
 
+  <div class="back-wrap">
+    <button type="button" class="back-btn" data-back-fallback="home.html">← Back</button>
+  </div>
 <div class="container">
   <h2>Add Product</h2>
   <p class="subtitle">Enter your product details so customers can view and purchase your dates.</p>
@@ -62,6 +63,13 @@
     <label for="description">Description</label>
     <textarea id="description" placeholder="Describe the product"></textarea>
 
+    <label for="productImage">Product Image</label>
+    <input type="file" id="productImage" accept="image/*">
+
+    <div class="image-preview-box">
+      <img id="imagePreview" src="" alt="Preview" style="display:none;">
+    </div>
+
     <button type="submit">Add Product</button>
 
     <p id="addProductMessage" class="form-message"></p>
@@ -93,7 +101,35 @@
 </footer>
 
 <script>
-  document.getElementById("addProductForm").addEventListener("submit", function(e) {
+  const addProductForm = document.getElementById("addProductForm");
+  const productImageInput = document.getElementById("productImage");
+  const imagePreview = document.getElementById("imagePreview");
+  const addProductMessage = document.getElementById("addProductMessage");
+
+  let imageData = "";
+
+  productImageInput.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (!file) {
+      imageData = "";
+      imagePreview.style.display = "none";
+      imagePreview.src = "";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      imageData = e.target.result;
+      imagePreview.src = imageData;
+      imagePreview.style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
+  });
+
+  addProductForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const productName = document.getElementById("productName").value.trim();
@@ -102,10 +138,9 @@
     const quantity = document.getElementById("quantity").value.trim();
     const origin = document.getElementById("origin").value;
     const description = document.getElementById("description").value.trim();
-    const message = document.getElementById("addProductMessage");
 
-    message.textContent = "";
-    message.className = "form-message";
+    addProductMessage.textContent = "";
+    addProductMessage.className = "form-message";
 
     if (
       productName === "" ||
@@ -113,28 +148,30 @@
       price === "" ||
       quantity === "" ||
       origin === "" ||
-      description === ""
+      description === "" ||
+      imageData === ""
     ) {
-      message.textContent = "Please fill in all required fields.";
-      message.classList.add("error-message");
+      addProductMessage.textContent = "Please fill in all fields and add a product image.";
+      addProductMessage.classList.add("error-message");
       return;
     }
 
-    if (Number(price) < 0 || isNaN(Number(price))) {
-      message.textContent = "Please enter a valid price.";
-      message.classList.add("error-message");
+    if (isNaN(Number(price)) || Number(price) < 0) {
+      addProductMessage.textContent = "Please enter a valid price.";
+      addProductMessage.classList.add("error-message");
       return;
     }
 
-    if (Number(quantity) < 0 || isNaN(Number(quantity))) {
-      message.textContent = "Please enter a valid quantity.";
-      message.classList.add("error-message");
+    if (isNaN(Number(quantity)) || Number(quantity) < 0) {
+      addProductMessage.textContent = "Please enter a valid quantity.";
+      addProductMessage.classList.add("error-message");
       return;
     }
 
     const farm = JSON.parse(localStorage.getItem("souqFarm")) || {};
     const products = JSON.parse(localStorage.getItem("souqProducts")) || [];
-const newProduct = {
+
+    const newProduct = {
       productName: productName,
       dateType: dateType,
       price: Number(price),
@@ -142,16 +179,20 @@ const newProduct = {
       region: origin,
       origin: origin,
       description: description,
-      farmName: farm.farmName || "My Farm"
+      farmName: farm.farmName || "My Farm",
+      imageUrl: imageData
     };
 
     products.push(newProduct);
     localStorage.setItem("souqProducts", JSON.stringify(products));
 
-    message.textContent = "Product added successfully.";
-    message.classList.add("success-message");
+    addProductMessage.textContent = "Product added successfully.";
+    addProductMessage.classList.add("success-message");
 
-    document.getElementById("addProductForm").reset();
+    addProductForm.reset();
+    imageData = "";
+    imagePreview.src = "";
+    imagePreview.style.display = "none";
   });
 </script>
 

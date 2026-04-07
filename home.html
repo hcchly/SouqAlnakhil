@@ -28,7 +28,7 @@
 </header>
 
 <div class="back-wrap">
-  <button type="button" class="back-btn" onclick="history.back()">← Back</button>
+  <button type="button" class="back-btn" onclick="goBackSafe()">← Back</button>
 </div>
 
 <main class="page-shell">
@@ -37,7 +37,7 @@
       <div>
         <h1>Discover Fresh Saudi Dates</h1>
         <p>
-          Browse products from local farms, search by farm name, and filter by region or date type
+          Browse products from local farms, search by name, and filter by region or date type
           to find the dates that match your preference.
         </p>
       </div>
@@ -54,20 +54,21 @@
     </div>
 
     <form class="filter-form" id="filterForm">
-      <input type="text" id="searchInput" placeholder="Search by farm name">
+      <input type="text" id="productSearchInput" placeholder="Search by product name">
+      <input type="text" id="farmSearchInput" placeholder="Search by farm name">
 
       <select id="regionFilter">
-        <option value="">All Regions</option>
-        <option>Najd</option>
-        <option>Qassim</option>
-        <option>Al-Ahsa</option>
+        <option value="">Filter by Region</option>
+        <option value="Najd">Najd</option>
+        <option value="Qassim">Qassim</option>
+        <option value="Al-Ahsa">Al-Ahsa</option>
       </select>
 
       <select id="typeFilter">
-        <option value="">All Date Types</option>
-        <option>Ajwa</option>
-        <option>Sukkari</option>
-        <option>Khalas</option>
+        <option value="">Filter by Date Type</option>
+        <option value="Ajwa">Ajwa</option>
+        <option value="Sukkari">Sukkari</option>
+        <option value="Khalas">Khalas</option>
       </select>
 
       <button type="submit">Search</button>
@@ -82,16 +83,48 @@
       </div>
     </div>
 
-    <div id="noResultsMessage" class="no-results" style="display:none;">
-      No matching products found.
+    <div class="products-grid" id="productsGrid">
+      <div class="market-card">
+        <img src="images/ajwa.png" alt="Ajwa Dates">
+        <h4><a href="ProductDetails.html?product=Ajwa%20Dates" class="product-link">Ajwa Dates</a></h4>
+        <p><strong>Farm:</strong> Al Barakah Farm</p>
+        <p><strong>Region:</strong> Al-Ahsa</p>
+        <p><strong>Type:</strong> Ajwa</p>
+        <p><strong>Price:</strong> 45 SAR</p>
+        <p><strong>Quantity:</strong> 20 boxes</p>
+        <p class="card-desc">Fresh premium Ajwa dates from a trusted local farm.</p>
+      </div>
+
+      <div class="market-card">
+        <img src="images/sukkari.png" alt="Sukkari Dates">
+        <h4><a href="ProductDetails.html?product=Sukkari%20Dates" class="product-link">Sukkari Dates</a></h4>
+        <p><strong>Farm:</strong> Palm Valley</p>
+        <p><strong>Region:</strong> Qassim</p>
+        <p><strong>Type:</strong> Sukkari</p>
+        <p><strong>Price:</strong> 35 SAR</p>
+        <p><strong>Quantity:</strong> 15 boxes</p>
+        <p class="card-desc">Sweet and soft Sukkari dates, perfect for daily use.</p>
+      </div>
+
+      <div class="market-card">
+        <img src="images/khalas.png" alt="Khalas Dates">
+        <h4><a href="ProductDetails.html?product=Khalas%20Dates" class="product-link">Khalas Dates</a></h4>
+        <p><strong>Farm:</strong> Golden Palm Farm</p>
+        <p><strong>Region:</strong> Najd</p>
+        <p><strong>Type:</strong> Khalas</p>
+        <p><strong>Price:</strong> 40 SAR</p>
+        <p><strong>Quantity:</strong> 12 boxes</p>
+<p class="card-desc">High-quality Khalas dates with rich texture and flavor.</p>
+      </div>
     </div>
 
-    <div class="products-grid" id="productsGrid"></div>
+    <p id="noResultsMessage" class="notice" style="display:none;">No matching products found.</p>
   </section>
 </main>
 
 <footer class="site-footer">
   <div class="footer-container">
+    
     <div class="footer-brand">
       <h3>Souq Al-Nakhil</h3>
       <p>
@@ -105,6 +138,7 @@
       <p>Email: support@souqalnakhil.com</p>
       <p>Riyadh, Saudi Arabia</p>
     </div>
+
   </div>
 
   <div class="footer-bottom">
@@ -113,111 +147,66 @@
 </footer>
 
 <script>
-  const defaultProducts = [
-    {
-      id: 1,
-      productName: "Ajwa Dates",
-      farmName: "Al Barakah Farm",
-      region: "Al-Ahsa",
-      dateType: "Ajwa",
-      price: "45",
-      quantity: "20 boxes",
-      description: "Fresh premium Ajwa dates from a trusted local farm.",
-      imageUrl: "images/ajwa.png"
-    },
-    {
-      id: 2,
-      productName: "Sukkari Dates",
-      farmName: "Palm Valley",
-      region: "Qassim",
-      dateType: "Sukkari",
-      price: "35",
-      quantity: "15 boxes",
-      description: "Sweet and soft Sukkari dates, perfect for daily use.",
-      imageUrl: "images/sukkari.png"
-    },
-    {
-      id: 3,
-      productName: "Khalas Dates",
-      farmName: "Golden Palm Farm",
-      region: "Najd",
-      dateType: "Khalas",
-      price: "40",
-      quantity: "12 boxes",
-      description: "High-quality Khalas dates with rich texture and flavor.",
-      imageUrl: "images/khalas.png"
-    }
-  ];
+  const filterForm = document.getElementById("filterForm");
+  const productSearchInput = document.getElementById("productSearchInput");
+  const farmSearchInput = document.getElementById("farmSearchInput");
+  const regionFilter = document.getElementById("regionFilter");
+  const typeFilter = document.getElementById("typeFilter");
+  const productsGrid = document.getElementById("productsGrid");
+  const noResultsMessage = document.getElementById("noResultsMessage");
 
-  function getAllProducts() {
-    const savedProducts = JSON.parse(localStorage.getItem("souqMarketProducts")) || [];
-    return [...defaultProducts, ...savedProducts];
-  }
-
-  function renderProducts(products) {
-    const grid = document.getElementById("productsGrid");
-    const noResults = document.getElementById("noResultsMessage");
-
-    grid.innerHTML = "";
-
-    if (products.length === 0) {
-      noResults.style.display = "block";
-      return;
-    }
-
-    noResults.style.display = "none";
-
-    products.forEach(product => {
-      const card = document.createElement("div");
-      card.className = "market-card";
-
-      card.innerHTML = `
-        <img src="${product.imageUrl}" alt="${product.productName}">
-        <h4>
-          <a href="view-product.html?id=${product.id}" class="product-link">${product.productName}</a>
-        </h4>
-        <p><strong>Farm:</strong> ${product.farmName}</p>
-        <p><strong>Region:</strong> ${product.region}</p>
-        <p><strong>Type:</strong> ${product.dateType}</p>
-        <p><strong>Price:</strong> ${product.price} SAR</p>
-        <p><strong>Quantity:</strong> ${product.quantity}</p>
-        <p class="card-desc">${product.description}</p>
-      `;
-
-      grid.appendChild(card);
-    });
-  }
-
-  function applyFilters() {
-    const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
-    const regionValue = document.getElementById("regionFilter").value;
-    const typeValue = document.getElementById("typeFilter").value;
-
-    let products = getAllProducts();
-
-    if (searchValue) {
-      products = products.filter(product =>
-        product.farmName.toLowerCase().includes(searchValue)
-      );
-    }
-
-    if (regionValue) {
-      products = products.filter(product => product.region === regionValue);
-    }
-
-    if (typeValue) {
-      products = products.filter(product => product.dateType === typeValue);
-    }
-
-    renderProducts(products);
-  }
-
-  document.getElementById("filterForm").addEventListener("submit", function(e) {
+  filterForm.addEventListener("submit", function(e) {
     e.preventDefault();
-    applyFilters();
-  });
 
-  renderProducts(getAllProducts());
+    const productValue = productSearchInput.value.trim().toLowerCase();
+    const farmValue = farmSearchInput.value.trim().toLowerCase();
+    const regionValue = regionFilter.value;
+    const typeValue = typeFilter.value;
+
+    const cards = productsGrid.querySelectorAll(".market-card");
+    let visibleCount = 0;
+
+    cards.forEach(function(card) {
+      const productName = card.querySelector("h4").innerText.toLowerCase();
+      const paragraphs = card.querySelectorAll("p");
+
+      const farmText = paragraphs[0].innerText.replace("Farm:", "").trim().toLowerCase();
+      const regionText = paragraphs[1].innerText.replace("Region:", "").trim();
+      const typeText = paragraphs[2].innerText.replace("Type:", "").trim();
+
+      let matches = true;
+
+      if (productValue && !productName.includes(productValue)) {
+        matches = false;
+      }
+
+      if (farmValue && !farmText.includes(farmValue)) {
+        matches = false;
+      }
+
+      if (regionValue && regionText !== regionValue) {
+        matches = false;
+      }
+
+      if (typeValue && typeText !== typeValue) {
+        matches = false;
+      }
+
+      if (matches) {
+        card.style.display = "block";
+        visibleCount++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    if (visibleCount === 0) {
+      noResultsMessage.style.display = "block";
+    } else {
+      noResultsMessage.style.display = "none";
+    }
+  });
 </script>
+
 </body>
 </html>

@@ -10,7 +10,6 @@
 
   <header class="site-header">
     <div class="header-container">
-
       <a href="home.html" class="brand">
         <img src="logo.png" alt="Souq Al-Nakhil Logo" class="brand-logo">
         <div class="brand-text">
@@ -18,12 +17,6 @@
           <span class="brand-subtitle">Fresh Saudi Dates Marketplace</span>
         </div>
       </a>
-
-      <nav class="site-nav">
-        <a href="home.html">Home</a>
-        <a href="login.html" class="nav-btn nav-btn-outline">Login</a>
-        <a href="register.html" class="nav-btn nav-btn-solid">Register</a>
-      </nav>
 
     </div>
   </header>
@@ -50,21 +43,36 @@
           <h2>Welcome Back</h2>
           <p class="auth-subtitle">Log in to continue</p>
 
-          <form class="auth-form" id="loginForm">
+          <form class="auth-form" action="home.html" method="get">
             <label for="login-email">Email</label>
-            <input type="email" id="login-email" placeholder="Enter your email">
+            <input type="email" id="login-email" placeholder="Enter your email" required>
 
             <label for="login-password">Password</label>
-            <input type="password" id="login-password" placeholder="Enter your password">
+            <input type="password" id="login-password" placeholder="Enter your password" required>
 
-            <div class="auth-actions">
-              <button type="button" class="auth-btn auth-btn-customer" data-role="customer">Log in as Customer</button>
-              <button type="button" class="auth-btn auth-btn-farmer" data-role="farmer">Log in as Farmer</button>
-              <button type="button" class="auth-btn auth-btn-admin" data-role="admin">Log in as Admin</button>
-            </div>
+           <!-- Customer -->
+<button type="submit"
+        formaction="home.html"
+        formmethod="get"
+        class="auth-btn auth-btn-customer">
+  Log in as Customer
+</button>
 
-            <p id="loginMessage" class="form-message"></p>
-          </form>
+<!-- Farmer -->
+<button type="submit"
+        formaction="farmerdashboard.html"
+        formmethod="get"
+        class="auth-btn auth-btn-farmer">
+  Log in as Farmer
+</button>
+
+<!-- Admin -->
+<button type="submit"
+        formaction="admindashboard.html"
+        formmethod="get"
+        class="auth-btn auth-btn-admin">
+  Log in as Admin
+</button>
 
           <p class="auth-link">
             New user? <a href="register.html">Create Account</a>
