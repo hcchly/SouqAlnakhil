@@ -19,16 +19,17 @@
       </a>
 
       <nav class="site-nav">
-        <a href="home.html"class="nav-btn nav-btn-outline">Home</a>
-        <a href="Farmerdashboard.html"class="nav-btn nav-btn-outline">Dashboard</a>
-        <a href="add-product.html"class="nav-btn nav-btn-outline">Add Product</a>
+        <a href="home.html" class="nav-btn nav-btn-outline">Home</a>
+        <a href="Farmerdashboard.html" class="nav-btn nav-btn-outline">Dashboard</a>
+        <a href="add-product.html" class="nav-btn nav-btn-outline">Add Product</a>
         <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
       </nav>
     </div>
   </header>
-    <div class="back-wrap">
-  <button type="button" class="back-btn" onclick="goBackSafe()">← Back</button>
-</div>
+
+  <div class="back-wrap">
+    <button type="button" class="back-btn" data-back-fallback="home.html">← Back</button>
+  </div>
 
   <main class="page-shell">
     <section class="dashboard-hero">
@@ -36,7 +37,7 @@
         <div>
           <h1>Farmer Dashboard</h1>
         </div>
-        <div class="welcome-pill">Welcome, Abdulrahman</div>
+        <div class="welcome-pill">Welcome, <span id="farmerWelcomeName">Abdulrahman</span></div>
       </div>
     </section>
 
@@ -48,23 +49,10 @@
           <p>Complete the farm profile to continue with product and farm management.</p>
         </div>
 
-        <div class="state-grid">
-          <div class="state-card">
+        <div class="state-grid single-state-grid">
+          <div class="state-card single-state-card">
             <h4>Create Farm Profile</h4>
-            <p>Add farm name, location, date types, and a short farm description.</p>
             <a class="action-link secondary" href="createfarm.html">Open Form</a>
-          </div>
-
-          <div class="state-card">
-            <h4>Add Product</h4>
-            <p>This option will open after the farm profile is completed.</p>
-            <a class="action-link disabled" href="#">Locked</a>
-          </div>
-
-          <div class="state-card">
-            <h4>Edit Product</h4>
-            <p>Editing and deleting products are not available before farm setup is finished.</p>
-            <a class="action-link disabled" href="#">Locked</a>
           </div>
         </div>
       </div>
@@ -109,8 +97,7 @@
         </div>
 
         <div class="inline-actions">
-          <a class="action-link secondary" href="createfarm.html">View My Farm</a>
-          <a class="action-link light" href="createfarm.html">Edit Farm</a>
+          <button type="button" class="action-link light" id="resetFarmBtn">Reset Farm</button>
         </div>
       </div>
 
