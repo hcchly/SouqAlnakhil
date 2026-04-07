@@ -20,7 +20,7 @@
       </a>
 
       <nav class="site-nav">
-        <a href="home.html"class="nav-btn nav-btn-outline">Home</a>
+        <a href="home.html">Home</a>
         <a href="login.html" class="nav-btn nav-btn-outline">Login</a>
         <a href="register.html" class="nav-btn nav-btn-solid">Register</a>
       </nav>
@@ -50,7 +50,7 @@
           <h2>Welcome Back</h2>
           <p class="auth-subtitle">Log in to continue</p>
 
-          <form class="auth-form">
+          <form class="auth-form" id="loginForm">
             <label for="login-email">Email</label>
             <input type="email" id="login-email" placeholder="Enter your email">
 
@@ -58,10 +58,10 @@
             <input type="password" id="login-password" placeholder="Enter your password">
 
             <div class="auth-actions">
-              <button type="submit" class="auth-btn auth-btn-customer">Log in as Customer</button>
-              <button type="button" class="auth-btn auth-btn-farmer">Log in as Farmer</button>
-              <button type="button" class="auth-btn auth-btn-admin">Log in as Admin</button>
+              <button type="submit" class="auth-btn auth-btn-customer">Log in</button>
             </div>
+
+            <p id="loginMessage" class="form-message"></p>
           </form>
 
           <p class="auth-link">
@@ -97,5 +97,6 @@
     </div>
   </footer>
 
+  <script src="app.js"></script>
 </body>
 </html>
