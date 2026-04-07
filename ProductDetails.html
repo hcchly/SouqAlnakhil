@@ -1,84 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Product Details - Souq Al-Nakhil</title>
-<link rel="stylesheet" href="style.css">
+  <title>Product Details - Souq Al-Nakhil</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
 <header class="site-header">
-  <div class="header-container">
+    <div class="header-container">
+      <a href="home.html" class="brand">
+        <img src="logo.png" alt="Souq Al-Nakhil Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-title">Souq Al-Nakhil</span>
+          <span class="brand-subtitle">Farmer Panel</span>
+        </div>
+      </a>
 
-    <a href="home.html" class="brand">
-      <img src="logo.png" class="brand-logo">
-      <div class="brand-text">
-        <span class="brand-title">Souq Al-Nakhil</span>
-        <span class="brand-subtitle">Farmer Panel</span>
-      </div>
-    </a>
+      <nav class="site-nav">
+        <a href="home.html"class="nav-btn nav-btn-outline">Home</a>
+        <a href="Farmerdashboard.html"class="nav-btn nav-btn-outline">Dashboard</a>
+        <a href="add-product.html"class="nav-btn nav-btn-outline">Add Product</a>
+        <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
+      </nav>
+    </div>
+  </header>
 
-    <nav class="site-nav">
-      <a href="home.html">Home</a>
-      <a href="Farmerdashboard.html">Dashboard</a>
-      <a href="add-product.html">Add Product</a>
-      <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
-    </nav>
+<div class="container details-container">
+
+  <h2>Product Details</h2>
+  <p class="subtitle">View full information about this product.</p>
+
+  <div class="details-card">
+
+    <span class="trusted-badge">✔️ Trusted Farmer</span>
+
+    <table class="details-table">
+
+      <tr>
+        <td><strong>Product Name</strong></td>
+        <td>Sukkari Dates</td>
+      </tr>
+
+      <tr>
+        <td><strong>Date Type</strong></td>
+        <td>Sukkari</td>
+      </tr>
+
+      <tr>
+        <td><strong>Price</strong></td>
+        <td>40 SAR</td>
+      </tr>
+
+      <tr>
+        <td><strong>Quantity</strong></td>
+        <td>25 kg</td>
+      </tr>
+
+      <tr>
+        <td><strong>Region</strong></td>
+        <td>Qassim</td>
+      </tr>
+
+      <tr>
+        <td><strong>Description</strong></td>
+        <td>Fresh high-quality Saudi dates.</td>
+      </tr>
+
+      <tr>
+        <td><strong>Farm Name</strong></td>
+        <td><a href="FarmDeatails.html" class="farm-link">AlQassim Farm</a></td>
+      </tr>
+
+      <tr>
+        <td><strong>Contact Information</strong></td>
+        <td>
+
+          <!-- SHOW THIS IF CONTACT EXISTS -->
+          <div class="contact-available">
+            Phone: +966 5X XXX XXXX<br>
+            Email: farm@email.com
+          </div>
+
+          <!-- SHOW THIS IF NO CONTACT -->
+          <!--
+          <div class="no-contact">
+            Contact information is not available.
+          </div>
+          -->
+
+        </td>
+      </tr>
+
+    </table>
 
   </div>
-</header>
-    <div class="back-wrap">
-  <button type="button" class="back-btn" onclick="goBackSafe()">← Back</button>
-</div>
-
-<div class="container">
-
-<h2>Product Details</h2>
-
-<p class="subtitle">
-View full information about this product.
-</p>
-
-<div class="details-card">
-
-<table class="details-table">
-
-<tr>
-<td><strong>Product Name</strong></td>
-<td>Sukkari Dates</td>
-</tr>
-
-<tr>
-<td><strong>Price</strong></td>
-<td>40 SAR</td>
-</tr>
-
-<tr>
-<td><strong>Date Type</strong></td>
-<td>Sukkari</td>
-</tr>
-
-<tr>
-<td><strong>Quantity</strong></td>
-<td>25 kg</td>
-</tr>
-
-<tr>
-<td><strong>Farm Name</strong></td>
-<td><a href="FarmDeatails.html">AlQassim Farm</a></td></tr>
-
-<tr>
-<td><strong>Description</strong></td>
-<td>Fresh high-quality dates harvested from Al-Qassim farms.</td>
-</tr>
-
-</table>
-
-<button class="primary-btn">Contact Farm</button>
 
 </div>
-
-</div>
-
 
 <footer class="site-footer">
   <div class="footer-container">
