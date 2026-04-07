@@ -63,12 +63,6 @@
             <label for="confirm-password">Confirm Password</label>
             <input type="password" id="confirm-password" placeholder="Confirm your password">
 
-            <label for="register-role">Register As</label>
-            <select id="register-role">
-              <option value="Customer">Customer</option>
-              <option value="Farmer">Farmer</option>
-            </select>
-
             <div class="auth-actions">
               <button type="submit" class="auth-btn auth-btn-customer">Register</button>
             </div>
@@ -109,6 +103,73 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("registerForm");
+      const nameInput = document.getElementById("full-name");
+      const emailInput = document.getElementById("register-email");
+      const passwordInput = document.getElementById("register-password");
+      const confirmInput = document.getElementById("confirm-password");
+      const msg = document.getElementById("registerMessage");
+
+      if (!form  !nameInput  !emailInput  !passwordInput  !confirmInput || !msg) return;
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        const confirm = confirmInput.value.trim();
+
+        msg.textContent = "";
+        msg.className = "form-message";
+
+        if (!name  !email  !password) {
+          msg.textContent = "Please fill all required fields.";
+          msg.classList.add("error-message");
+          return;
+        }
+
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+        if (!emailPattern.test(email)) {
+          msg.textContent = "Please enter a valid email.";
+          msg.classList.add("error-message");
+          return;
+        }
+
+        if (password !== confirm) {
+          msg.textContent = "Passwords do not match.";
+          msg.classList.add("error-message");
+          return;
+        }
+
+        let users = JSON.parse(localStorage.getItem("souqUsers")) || [];
+
+        const exists = users.some(function (u) {
+          return u.email.toLowerCase() === email.toLowerCase();
+        });
+
+        if (exists) {
+          msg.textContent = "This email is already registered.";
+          msg.classList.add("error-message");
+          return;
+        }
+
+        const newUser = { name, email, password };
+        users.push(newUser);
+        localStorage.setItem("souqUsers", JSON.stringify(users));
+        localStorage.setItem("souqCurrentUser", JSON.stringify(newUser));
+
+        msg.textContent = "Account created successfully!";
+        msg.classList.add("success-message");
+
+        setTimeout(function () {
+          window.location.href = "Farmerdashboard.html";
+        }, 1000);
+      });
+    });
+  </script>
+
 </body>
 </html>

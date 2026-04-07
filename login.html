@@ -97,6 +97,54 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("loginForm");
+      const emailInput = document.getElementById("login-email");
+      const passwordInput = document.getElementById("login-password");
+      const msg = document.getElementById("loginMessage");
+
+      if (!form  !emailInput  !passwordInput || !msg) return;
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        msg.textContent = "";
+        msg.className = "form-message";
+
+        if (!email || !password) {
+          msg.textContent = "Please enter email and password.";
+          msg.classList.add("error-message");
+          return;
+        }
+
+        const users = JSON.parse(localStorage.getItem("souqUsers")) || [];
+
+        const user = users.find(function (u) {
+          return u.email.toLowerCase() === email.toLowerCase() &&
+                 u.password === password;
+        });
+
+        if (!user) {
+          msg.textContent = "Invalid email or password.";
+          msg.classList.add("error-message");
+          return;
+        }
+
+        localStorage.setItem("souqCurrentUser", JSON.stringify(user));
+
+        msg.textContent = "Login successful!";
+        msg.classList.add("success-message");
+
+        setTimeout(function () {
+          window.location.href = "Farmerdashboard.html";
+        }, 1000);
+      });
+    });
+  </script>
+
 </body>
 </html>
