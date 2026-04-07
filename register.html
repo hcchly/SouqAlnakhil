@@ -104,72 +104,45 @@
   </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("registerForm");
-      const nameInput = document.getElementById("full-name");
-      const emailInput = document.getElementById("register-email");
-      const passwordInput = document.getElementById("register-password");
-      const confirmInput = document.getElementById("confirm-password");
-      const msg = document.getElementById("registerMessage");
+document.getElementById("registerForm").addEventListener("submit", function(e){
+  e.preventDefault();
 
-      if (!form  !nameInput  !emailInput  !passwordInput  !confirmInput || !msg) return;
+  const name = document.getElementById("full-name").value.trim();
+  const email = document.getElementById("register-email").value.trim();
+  const password = document.getElementById("register-password").value.trim();
+  const confirm = document.getElementById("confirm-password").value.trim();
+  const msg = document.getElementById("registerMessage");
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
+  msg.innerText = "";
 
-        const name = nameInput.value.trim();
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-        const confirm = confirmInput.value.trim();
+  if(!name  !email  !password || !confirm){
+    msg.innerText = "Fill all fields";
+    return;
+  }
 
-        msg.textContent = "";
-        msg.className = "form-message";
+  if(password !== confirm){
+    msg.innerText = "Passwords do not match";
+    return;
+  }
 
-        if (!name  !email  !password) {
-          msg.textContent = "Please fill all required fields.";
-          msg.classList.add("error-message");
-          return;
-        }
+  let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
-        if (!emailPattern.test(email)) {
-          msg.textContent = "Please enter a valid email.";
-          msg.classList.add("error-message");
-          return;
-        }
+  // منع التكرار
+  if(users.some(u => u.email.toLowerCase() === email.toLowerCase())){
+    msg.innerText = "Email already exists";
+    return;
+  }
 
-        if (password !== confirm) {
-          msg.textContent = "Passwords do not match.";
-          msg.classList.add("error-message");
-          return;
-        }
+  users.push({name, email, password});
+  localStorage.setItem("users", JSON.stringify(users));
 
-        let users = JSON.parse(localStorage.getItem("souqUsers")) || [];
+  msg.innerText = "Account created successfully";
 
-        const exists = users.some(function (u) {
-          return u.email.toLowerCase() === email.toLowerCase();
-        });
-
-        if (exists) {
-          msg.textContent = "This email is already registered.";
-          msg.classList.add("error-message");
-          return;
-        }
-
-        const newUser = { name, email, password };
-        users.push(newUser);
-        localStorage.setItem("souqUsers", JSON.stringify(users));
-        localStorage.setItem("souqCurrentUser", JSON.stringify(newUser));
-
-        msg.textContent = "Account created successfully!";
-        msg.classList.add("success-message");
-
-        setTimeout(function () {
-          window.location.href = "Farmerdashboard.html";
-        }, 1000);
-      });
-    });
-  </script>
+  setTimeout(()=>{
+    window.location.href = "home.html";
+  },1000);
+});
+</script>
 
 </body>
 </html>

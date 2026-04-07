@@ -98,53 +98,34 @@
   </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("loginForm");
-      const emailInput = document.getElementById("login-email");
-      const passwordInput = document.getElementById("login-password");
-      const msg = document.getElementById("loginMessage");
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
 
-      if (!form  !emailInput  !passwordInput || !msg) return;
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value.trim();
+  const msg = document.getElementById("loginMessage");
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
+  msg.innerText = "";
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
+  let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        msg.textContent = "";
-        msg.className = "form-message";
+  const user = users.find(u =>
+    u.email.toLowerCase() === email.toLowerCase() &&
+    u.password === password
+  );
 
-        if (!email || !password) {
-          msg.textContent = "Please enter email and password.";
-          msg.classList.add("error-message");
-          return;
-        }
+  if(!user){
+    msg.innerText = "Invalid email or password";
+    return;
+  }
 
-        const users = JSON.parse(localStorage.getItem("souqUsers")) || [];
+  msg.innerText = "Login successful";
 
-        const user = users.find(function (u) {
-          return u.email.toLowerCase() === email.toLowerCase() &&
-                 u.password === password;
-        });
-
-        if (!user) {
-          msg.textContent = "Invalid email or password.";
-          msg.classList.add("error-message");
-          return;
-        }
-
-        localStorage.setItem("souqCurrentUser", JSON.stringify(user));
-
-        msg.textContent = "Login successful!";
-        msg.classList.add("success-message");
-
-        setTimeout(function () {
-          window.location.href = "Farmerdashboard.html";
-        }, 1000);
-      });
-    });
-  </script>
+  setTimeout(()=>{
+    window.location.href = "home.html";
+  },1000);
+});
+</script>
 
 </body>
 </html>
