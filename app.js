@@ -1,6 +1,7 @@
 const FARM_KEY = "souqFarm";
 const PRODUCTS_KEY = "souqProducts";
 const EDIT_INDEX_KEY = "souqEditProductIndex";
+const PRODUCT_DATE_TYPES = ["Ajwa", "Khalas", "Sukkari"];
 
 function getFarm() {
   return JSON.parse(localStorage.getItem(FARM_KEY)) || null;
@@ -37,6 +38,25 @@ function getEditProductIndex() {
 
 function clearEditProductIndex() {
   localStorage.removeItem(EDIT_INDEX_KEY);
+}
+
+function buildDateTypeOptions(selectedValue = "") {
+  return [
+    '<option value="">Select date type</option>',
+    ...PRODUCT_DATE_TYPES.map((type) => {
+      const selected = type === selectedValue ? ' selected' : "";
+      return `<option value="${escapeHtml(type)}"${selected}>${escapeHtml(type)}</option>`;
+    })
+  ].join("");
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function showFormMessage(element, message, type) {
@@ -160,7 +180,11 @@ function initAddProductPage() {
 
   const formMessage = document.getElementById("addProductMessage");
   const lockedNotice = document.getElementById("addProductLocked");
+  const dateTypeSelect = document.getElementById("dateType");
+  const productImageInput = document.getElementById("productImage");
+  const imagePreview = document.getElementById("imagePreview");
   const farm = getFarm();
+  let imageData = "";
 
   if (!farm) {
     if (lockedNotice) lockedNotice.hidden = false;
@@ -169,6 +193,31 @@ function initAddProductPage() {
   }
 
   if (lockedNotice) lockedNotice.hidden = true;
+
+  if (dateTypeSelect) {
+    dateTypeSelect.innerHTML = buildDateTypeOptions();
+  }
+
+  if (productImageInput && imagePreview) {
+    productImageInput.addEventListener("change", () => {
+      const file = productImageInput.files?.[0];
+
+      if (!file) {
+        imageData = "";
+        imagePreview.src = "";
+        imagePreview.style.display = "none";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        imageData = loadEvent.target?.result || "";
+        imagePreview.src = imageData;
+        imagePreview.style.display = imageData ? "block" : "none";
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -204,12 +253,18 @@ function initAddProductPage() {
       region: origin,
       origin,
       description,
-      farmName: farm.farmName
+      farmName: farm.farmName,
+      imageUrl: imageData || ""
     });
 
     saveProducts(products);
     showFormMessage(formMessage, "Product added successfully.", "success-message");
     form.reset();
+    imageData = "";
+    if (imagePreview) {
+      imagePreview.src = "";
+      imagePreview.style.display = "none";
+    }
     redirectAfterDelay("Farmerdashboard.html");
   });
 }
@@ -223,6 +278,8 @@ function initEditProductPage() {
   const errorBox = document.getElementById("productError");
   const successBox = document.getElementById("productSuccess");
   const formMessage = document.getElementById("productFormMessage");
+  const imageInput = document.getElementById("productImage");
+  const imagePreview = document.getElementById("imagePreview");
 
   if (editIndex === null || !products[editIndex]) {
     window.alert("Please select a product from the dashboard first.");
@@ -231,12 +288,42 @@ function initEditProductPage() {
   }
 
   const product = products[editIndex];
+  let imageData = product.imageUrl || "";
+  const dateTypeSelect = document.getElementById("dateType");
+  if (dateTypeSelect) {
+    dateTypeSelect.innerHTML = buildDateTypeOptions(product.dateType);
+  }
   document.getElementById("productName").value = product.productName;
-  document.getElementById("dateType").value = product.dateType;
   document.getElementById("price").value = product.price;
   document.getElementById("quantity").value = product.quantity;
-  document.getElementById("originRegion").value = product.region;
+  document.getElementById("originRegion").value = product.origin || product.region || "";
   document.getElementById("productDescription").value = product.description;
+
+  if (imagePreview && imageData) {
+    imagePreview.src = imageData;
+    imagePreview.style.display = "block";
+  }
+
+  if (imageInput && imagePreview) {
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files?.[0];
+
+      if (!file) {
+        imageData = product.imageUrl || "";
+        imagePreview.src = imageData;
+        imagePreview.style.display = imageData ? "block" : "none";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        imageData = loadEvent.target?.result || "";
+        imagePreview.src = imageData;
+        imagePreview.style.display = imageData ? "block" : "none";
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -262,7 +349,7 @@ function initEditProductPage() {
       } else if (quantity === "" || Number.isNaN(Number(quantity)) || Number(quantity) < 0) {
         showMessage(errorBox, successBox, "Quantity must be a valid number greater than or equal to 0.");
       } else if (region === "" || region === "Select Region") {
-        showMessage(errorBox, successBox, "Please select the origin region.");
+        showMessage(errorBox, successBox, "Please select the region.");
       } else {
         showMessage(errorBox, successBox, "Please enter the product description.");
       }
@@ -294,8 +381,13 @@ function initEditProductPage() {
       price: Number(price),
       quantity: Number(quantity),
       region,
+      origin: region,
       description
     };
+
+    if (imageData) {
+      products[editIndex].imageUrl = imageData;
+    }
 
     saveProducts(products);
     clearEditProductIndex();
@@ -313,26 +405,31 @@ function renderProductsTable(productsTableBody, products) {
 
   if (products.length === 0) {
     productsTableBody.innerHTML = `
-      <tr>
-        <td colspan="5">No products added yet.</td>
-      </tr>
+      <div class="empty-products-state">No products added yet.</div>
     `;
     return;
   }
 
   productsTableBody.innerHTML = products.map((product, index) => `
-    <tr>
-      <td>${product.productName}</td>
-      <td>${product.dateType}</td>
-      <td>${product.price} SAR</td>
-      <td>${product.quantity}</td>
-      <td>
+    <article class="dashboard-product-row">
+      <div class="dashboard-product-col dashboard-product-col--image">
+        ${product.imageUrl ? `<img class="dashboard-product-image" src="${product.imageUrl}" alt="${escapeHtml(product.productName)}">` : '<div class="dashboard-product-image placeholder">No photo</div>'}
+      </div>
+      <div class="dashboard-product-col dashboard-product-col--name">${escapeHtml(product.productName)}</div>
+      <div class="dashboard-product-col">${escapeHtml(product.dateType)}</div>
+      <div class="dashboard-product-col">${escapeHtml(product.price)} SAR</div>
+      <div class="dashboard-product-col">${escapeHtml(product.quantity)}</div>
+      <div class="dashboard-product-col">${escapeHtml(product.origin || product.region || "-")}</div>
+      <div class="dashboard-product-col dashboard-product-col--description">
+        <span class="description-text">${escapeHtml(product.description || "-")}</span>
+      </div>
+      <div class="dashboard-product-col dashboard-product-col--actions">
         <div class="table-actions">
-          <a class="mini-btn edit" href="editProduct.html" data-index="${index}">Edit</a>
-          <a class="mini-btn delete" href="#" data-delete-index="${index}">Delete</a>
+          <a class="mini-btn edit" href="editProduct.html" data-index="${product.storageIndex ?? index}">Edit</a>
+          <a class="mini-btn delete" href="#" data-delete-index="${product.storageIndex ?? index}">Delete</a>
         </div>
-      </td>
-    </tr>
+      </div>
+    </article>
   `).join("");
 
   productsTableBody.querySelectorAll("[data-index]").forEach((button) => {
@@ -379,10 +476,12 @@ function initFarmerDashboardPage() {
   if (farmProfileSection) farmProfileSection.style.display = "block";
   if (productsSection) productsSection.style.display = "block";
 
-  const farmProducts = products.filter((product) => {
-    if (!product.farmName) return true;
-    return product.farmName === farm.farmName;
-  });
+  const farmProducts = products
+    .map((product, index) => ({ ...product, storageIndex: index }))
+    .filter((product) => {
+      if (!product.farmName) return true;
+      return product.farmName === farm.farmName;
+    });
 
   const farmerWelcomeName = document.getElementById("farmerWelcomeName");
   const totalProducts = document.getElementById("totalProducts");
@@ -449,6 +548,7 @@ function setupBackButtons() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initCreateFarmPage();
+  initAddProductPage();
   initEditProductPage();
   initFarmerDashboardPage();
   setupBackButtons();

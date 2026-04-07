@@ -1,149 +1,104 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Edit Product</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product - Souq Al-Nakhil</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header class="site-header">
-  <div class="header-container">
+  <header class="site-header">
+    <div class="header-container">
+      <a href="home.html" class="brand">
+        <img src="logo.png" alt="Souq Al-Nakhil Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-title">Souq Al-Nakhil</span>
+          <span class="brand-subtitle">Farmer Panel</span>
+        </div>
+      </a>
 
-    <a href="home.html" class="brand">
-      <img src="logo.png" class="brand-logo">
-      <div class="brand-text">
-        <span class="brand-title">Souq Al-Nakhil</span>
-        <span class="brand-subtitle">Farmer Panel</span>
-      </div>
-    </a>
-
-    <nav class="site-nav">
-        <a href="Farmerdashboard.html"class="nav-btn nav-btn-outline">Dashboard</a>
-      <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
-    </nav>
-
-  </div>
-</header>
-
+      <nav class="site-nav">
+        <a href="Farmerdashboard.html" class="nav-btn nav-btn-outline">Dashboard</a>
+        <a href="login.html" class="nav-btn nav-btn-outline">Logout</a>
+      </nav>
+    </div>
+  </header>
 
   <div class="back-wrap">
-    <button type="button" class="back-btn" data-back-fallback="home.html">← Back</button>
+    <button type="button" class="back-btn" data-back-fallback="Farmerdashboard.html">← Back</button>
   </div>
-<!-- FORM -->
 
-<div class="container">
+  <div class="container">
+    <h2>Edit Product</h2>
+    <p class="subtitle">Update the product information below.</p>
 
-<h2>Edit Product</h2>
+    <form id="editProductForm">
+      <label for="productName">Product Name</label>
+      <input type="text" id="productName" placeholder="Enter product name">
 
-<p class="subtitle">
-Update the product information below.
-</p>
+      <label for="dateType">Date Type</label>
+      <select id="dateType">
+        <option value="">Select date type</option>
+        <option>Ajwa</option>
+        <option>Khalas</option>
+        <option>Sukkari</option>
+      </select>
 
-<form>
+      <label for="price">Price (SAR)</label>
+      <input type="number" id="price" placeholder="Enter price">
 
-<label>Product Name</label>
-<input type="text" placeholder="Enter product name">
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" placeholder="Enter quantity">
 
+      <label for="originRegion">Region</label>
+      <select id="originRegion">
+        <option value="">Select region</option>
+        <option>Najd</option>
+        <option>Qassim</option>
+        <option>Al-Ahsa</option>
+      </select>
 
-<label>Date Type</label>
-<select>
+      <label for="productDescription">Product Description</label>
+      <textarea id="productDescription" placeholder="Describe the product"></textarea>
 
-<option>Select Date Type</option>
-<option>Ajwa</option>
-<option>Sukkari</option>
-<option>Khalas</option>
+      <label for="productImage">Product Image</label>
+      <input type="file" id="productImage" accept="image/*">
 
-</select>
+      <div class="image-preview-box">
+        <img id="imagePreview" src="" alt="Preview" style="display:none;">
+      </div>
 
+      <p id="productError" class="error-message"></p>
+      <p id="productSuccess" class="success-message"></p>
+      <p id="productFormMessage" class="form-message"></p>
 
-<label>Price (SAR)</label>
-<input type="number" placeholder="Enter price">
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
 
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Souq Al-Nakhil</h3>
+        <p>
+          A trusted Saudi marketplace connecting local farms with customers,
+          making it easier to discover fresh, high-quality dates from different regions.
+        </p>
+      </div>
 
-<label>Quantity</label>
-<input type="number" placeholder="Enter quantity">
-
-
-<label>Origin Region</label>
-<select>
-
-<option>Select Region</option>
-<option>Najd</option>
-<option>Qassim</option>
-<option>Al-Ahsa</option>
-
-</select>
-
-
-<label>Product Description</label>
-<textarea placeholder="Describe the product"></textarea>
-
-<label>Product Image</label>
-<input type="file" id="productImage" accept="image/*">
-
-<div class="image-preview-box">
-  <img id="imagePreview" src="" alt="Preview" style="display:none;">
-</div>
-
-<button>Save Changes</button>
-
-</form>
-
-</div>
-
-
-<footer class="site-footer">
-  <div class="footer-container">
-    
-    <div class="footer-brand">
-      <h3>Souq Al-Nakhil</h3>
-      <p>
-        A trusted Saudi marketplace connecting local farms with customers,
-        making it easier to discover fresh, high-quality dates from different regions.
-      </p>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: support@souqalnakhil.com</p>
+        <p>Riyadh, Saudi Arabia</p>
+      </div>
     </div>
 
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>Email: support@souqalnakhil.com</p>
-      <p>Riyadh, Saudi Arabia</p>
+    <div class="footer-bottom">
+      <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
     </div>
+  </footer>
 
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
-  </div>
-</footer>
-
-<script>
-  const imageInput = document.getElementById("productImage");
-  const preview = document.getElementById("imagePreview");
-
-  let imageData = "";
-
-  imageInput.addEventListener("change", function () {
-    const file = this.files[0];
-
-    if (!file) {
-      preview.style.display = "none";
-      preview.src = "";
-      imageData = "";
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      imageData = e.target.result;
-      preview.src = imageData;
-      preview.style.display = "block";
-    };
-
-    reader.readAsDataURL(file);
-  });
-</script>
+  <script src="app.js"></script>
 </body>
 </html>

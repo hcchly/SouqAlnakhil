@@ -33,6 +33,7 @@
 <div class="container">
   <h2>Add Product</h2>
   <p class="subtitle">Enter your product details so customers can view and purchase your dates.</p>
+  <p id="addProductLocked" class="form-message error-message" hidden>Create the farm profile first before adding a product.</p>
 
   <form id="addProductForm">
     <label for="productName">Product Name</label>
@@ -42,8 +43,8 @@
     <select id="dateType">
       <option value="">Select date type</option>
       <option>Ajwa</option>
-      <option>Sukkari</option>
       <option>Khalas</option>
+      <option>Sukkari</option>
     </select>
 
     <label for="price">Price</label>
@@ -52,9 +53,9 @@
     <label for="quantity">Quantity</label>
     <input type="number" id="quantity" placeholder="Enter quantity">
 
-    <label for="origin">Origin</label>
+    <label for="origin">Region</label>
     <select id="origin">
-      <option value="">Select origin</option>
+      <option value="">Select region</option>
       <option>Najd</option>
       <option>Qassim</option>
       <option>Al-Ahsa</option>
@@ -100,101 +101,7 @@
   </div>
 </footer>
 
-<script>
-  const addProductForm = document.getElementById("addProductForm");
-  const productImageInput = document.getElementById("productImage");
-  const imagePreview = document.getElementById("imagePreview");
-  const addProductMessage = document.getElementById("addProductMessage");
-
-  let imageData = "";
-
-  productImageInput.addEventListener("change", function () {
-    const file = this.files[0];
-
-    if (!file) {
-      imageData = "";
-      imagePreview.style.display = "none";
-      imagePreview.src = "";
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      imageData = e.target.result;
-      imagePreview.src = imageData;
-      imagePreview.style.display = "block";
-    };
-
-    reader.readAsDataURL(file);
-  });
-
-  addProductForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const productName = document.getElementById("productName").value.trim();
-    const dateType = document.getElementById("dateType").value;
-    const price = document.getElementById("price").value.trim();
-    const quantity = document.getElementById("quantity").value.trim();
-    const origin = document.getElementById("origin").value;
-    const description = document.getElementById("description").value.trim();
-
-    addProductMessage.textContent = "";
-    addProductMessage.className = "form-message";
-
-    if (
-      productName === "" ||
-      dateType === "" ||
-      price === "" ||
-      quantity === "" ||
-      origin === "" ||
-      description === "" ||
-      imageData === ""
-    ) {
-      addProductMessage.textContent = "Please fill in all fields and add a product image.";
-      addProductMessage.classList.add("error-message");
-      return;
-    }
-
-    if (isNaN(Number(price)) || Number(price) < 0) {
-      addProductMessage.textContent = "Please enter a valid price.";
-      addProductMessage.classList.add("error-message");
-      return;
-    }
-
-    if (isNaN(Number(quantity)) || Number(quantity) < 0) {
-      addProductMessage.textContent = "Please enter a valid quantity.";
-      addProductMessage.classList.add("error-message");
-      return;
-    }
-
-    const farm = JSON.parse(localStorage.getItem("souqFarm")) || {};
-    const products = JSON.parse(localStorage.getItem("souqProducts")) || [];
-
-    const newProduct = {
-      productName: productName,
-      dateType: dateType,
-      price: Number(price),
-      quantity: Number(quantity),
-      region: origin,
-      origin: origin,
-      description: description,
-      farmName: farm.farmName || "My Farm",
-      imageUrl: imageData
-    };
-
-    products.push(newProduct);
-    localStorage.setItem("souqProducts", JSON.stringify(products));
-
-    addProductMessage.textContent = "Product added successfully.";
-    addProductMessage.classList.add("success-message");
-
-    addProductForm.reset();
-    imageData = "";
-    imagePreview.src = "";
-    imagePreview.style.display = "none";
-  });
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
