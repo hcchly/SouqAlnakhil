@@ -58,7 +58,9 @@
             <input type="password" id="login-password" placeholder="Enter your password">
 
             <div class="auth-actions">
-              <button type="submit" class="auth-btn auth-btn-customer">Log in</button>
+              <button type="button" class="auth-btn auth-btn-customer" data-role="customer">Log in as Customer</button>
+              <button type="button" class="auth-btn auth-btn-farmer" data-role="farmer">Log in as Farmer</button>
+              <button type="button" class="auth-btn auth-btn-admin" data-role="admin">Log in as Admin</button>
             </div>
 
             <p id="loginMessage" class="form-message"></p>
@@ -75,7 +77,6 @@
 
   <footer class="site-footer">
     <div class="footer-container">
-
       <div class="footer-brand">
         <h3>Souq Al-Nakhil</h3>
         <p>
@@ -89,43 +90,11 @@
         <p>Email: support@souqalnakhil.com</p>
         <p>Riyadh, Saudi Arabia</p>
       </div>
-
     </div>
 
     <div class="footer-bottom">
       <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
     </div>
   </footer>
-
-  <script>
-document.getElementById("loginForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value.trim();
-  const msg = document.getElementById("loginMessage");
-
-  msg.innerText = "";
-
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  const user = users.find(u =>
-    u.email.toLowerCase() === email.toLowerCase() &&
-    u.password === password
-  );
-
-  if(!user){
-    msg.innerText = "Invalid email or password";
-    return;
-  }
-
-  msg.innerText = "Login successful";
-
-  setTimeout(()=>{
-    window.location.href = "home.html";
-  },1000);
-});
-</script>
-
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register - Souq Al-Nakhil</title>
+  <title>Login - Souq Al-Nakhil</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="auth-body">
@@ -33,45 +33,41 @@
 
       <section class="auth-left">
         <div class="hero-text">
-          <h1>Join the Marketplace<br>of Trusted Saudi Farms</h1>
+          <h1>Fresh Saudi Dates,<br>Direct from Local Farms</h1>
           <p>
-            Register as a customer, farmer, or admin and become part of a platform
-            that supports local agriculture and transparent shopping.
+            A trusted Saudi marketplace that connects customers with verified local farmers,
+            making it easier to discover fresh, high-quality dates from different regions.
           </p>
         </div>
 
         <div class="hero-image-box">
-          <img src="images/farmer-register.jpg" alt="Saudi Farm" class="hero-image">
+          <img src="images/farmer-login.jpg" alt="Local Farmer" class="hero-image">
         </div>
       </section>
 
       <section class="auth-right">
         <div class="auth-card">
-          <h2>Create Account</h2>
-          <p class="auth-subtitle">Sign up to continue</p>
+          <h2>Welcome Back</h2>
+          <p class="auth-subtitle">Log in to continue</p>
 
-          <form class="auth-form" id="registerForm">
-            <label for="full-name">Full Name</label>
-            <input type="text" id="full-name" placeholder="Enter your full name">
+          <form class="auth-form" id="loginForm">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="Enter your email">
 
-            <label for="register-email">Email</label>
-            <input type="email" id="register-email" placeholder="Enter your email">
-
-            <label for="register-password">Password</label>
-            <input type="password" id="register-password" placeholder="Create a password">
-
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" placeholder="Confirm your password">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password">
 
             <div class="auth-actions">
-              <button type="submit" class="auth-btn auth-btn-customer">Register</button>
+              <button type="button" class="auth-btn auth-btn-customer" data-role="customer">Log in as Customer</button>
+              <button type="button" class="auth-btn auth-btn-farmer" data-role="farmer">Log in as Farmer</button>
+              <button type="button" class="auth-btn auth-btn-admin" data-role="admin">Log in as Admin</button>
             </div>
 
-            <p id="registerMessage" class="form-message"></p>
+            <p id="loginMessage" class="form-message"></p>
           </form>
 
           <p class="auth-link">
-            Already have an account? <a href="login.html">Login</a>
+            New user? <a href="register.html">Create Account</a>
           </p>
         </div>
       </section>
@@ -81,7 +77,6 @@
 
   <footer class="site-footer">
     <div class="footer-container">
-
       <div class="footer-brand">
         <h3>Souq Al-Nakhil</h3>
         <p>
@@ -95,54 +90,11 @@
         <p>Email: support@souqalnakhil.com</p>
         <p>Riyadh, Saudi Arabia</p>
       </div>
-
     </div>
 
     <div class="footer-bottom">
       <p>© 2026 Souq Al-Nakhil. All rights reserved.</p>
     </div>
   </footer>
-
-  <script>
-document.getElementById("registerForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  const name = document.getElementById("full-name").value.trim();
-  const email = document.getElementById("register-email").value.trim();
-  const password = document.getElementById("register-password").value.trim();
-  const confirm = document.getElementById("confirm-password").value.trim();
-  const msg = document.getElementById("registerMessage");
-
-  msg.innerText = "";
-
-  if(!name  !email  !password || !confirm){
-    msg.innerText = "Fill all fields";
-    return;
-  }
-
-  if(password !== confirm){
-    msg.innerText = "Passwords do not match";
-    return;
-  }
-
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  // منع التكرار
-  if(users.some(u => u.email.toLowerCase() === email.toLowerCase())){
-    msg.innerText = "Email already exists";
-    return;
-  }
-
-  users.push({name, email, password});
-  localStorage.setItem("users", JSON.stringify(users));
-
-  msg.innerText = "Account created successfully";
-
-  setTimeout(()=>{
-    window.location.href = "home.html";
-  },1000);
-});
-</script>
-
 </body>
 </html>
